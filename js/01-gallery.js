@@ -53,17 +53,19 @@ function createGalleryItemsMarkup(items) {
 }
 
 // create modal
-function onImgClickCreateModal(e) {
-  e.preventDefault();
+function onImgClickCreateModal(event) {
+  event.preventDefault();
 
-  const isItemImage = e.target.classList.contains(
-    "gallery__image"
-  );
+  const isItemImage =
+    event.target.classList.contains(
+      "gallery__image"
+    );
   if (!isItemImage) {
     return;
   }
 
-  const currentImgUrl = e.target.dataset.source;
+  const currentImgUrl =
+    event.target.dataset.source;
 
   const instance = basicLightbox.create(
     `
@@ -86,9 +88,9 @@ function onImgClickCreateModal(e) {
   );
   instance.show();
 
-  function onEscKeyPress(e) {
+  function onEscKeyPress(event) {
     const ESC_KEY_CODE = "Escape";
-    const isEscKey = e.code === ESC_KEY_CODE;
+    const isEscKey = event.code === ESC_KEY_CODE;
     if (isEscKey) {
       instance.close();
     }

@@ -11,10 +11,6 @@ galleryContainer.insertAdjacentHTML(
   "beforeend",
   itemsMarkup
 );
-galleryContainer.addEventListener(
-  "click",
-  onImgClickCreateModal
-);
 
 // rendered items
 function createGalleryItemsMarkup(items) {
@@ -31,46 +27,11 @@ function createGalleryItemsMarkup(items) {
     })
     .join("");
 }
-
-// create modal
-function onImgClickCreateModal(e) {
-  e.preventDefault();
-
-  const isItemImage = e.target.classList.contains(
-    "gallery__image"
-  );
-  if (!isItemImage) {
-    return;
+const lightbox = new SimpleLightbox(
+  ".gallery a",
+  {
+    captionsData: "alt",
+    captionPosition: "bottom",
+    captionDelay: 250,
   }
-
-  const currentImgUrl = e.target.dataset.source;
-
-  const instance = basicLightbox.create(
-    `
-		<img src="${currentImgUrl}" width="1280" height="auto"/>
-        `,
-    {
-      onShow: (instance) => {
-        window.addEventListener(
-          "keydown",
-          onEscKeyPress
-        );
-      },
-      onClose: (instance) => {
-        window.removeEventListener(
-          "keydown",
-          onEscKeyPress
-        );
-      },
-    }
-  );
-  instance.show();
-
-  function onEscKeyPress(e) {
-    const ESC_KEY_CODE = "Escape";
-    const isEscKey = e.code === ESC_KEY_CODE;
-    if (isEscKey) {
-      instance.close();
-    }
-  }
-}
+);
